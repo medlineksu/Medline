@@ -1,0 +1,145 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type SendSmsResult {
+  operation: String!
+  status: String!
+}
+
+type AuthTokens {
+  accessToken: String!
+  refreshToken: String!
+}
+
+type DonationPost {
+  id: String!
+  content: String!
+  address: String!
+  showPhoneNumber: Boolean!
+  type: String!
+  bloodType: String!
+  userId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: String!
+  name: String!
+  phoneNumber: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  donationPosts: [DonationPost!]!
+}
+
+type Query {
+  user(input: FetchUserInput!): User!
+  donationPosts(input: FetchDonationPostsInput!): [DonationPost!]!
+  donationPost(input: FetchDonationPostInput!): DonationPost!
+}
+
+input FetchUserInput {
+  accessToken: String!
+  id: String
+  phoneNumber: String
+}
+
+input FetchDonationPostsInput {
+  accessToken: String!
+  skip: Int = 0
+  take: Int = 10
+  cursor: String
+  type: String
+  bloodType: String
+}
+
+input FetchDonationPostInput {
+  accessToken: String!
+  id: String!
+}
+
+type Mutation {
+  uploadFile(file: Upload!): Boolean!
+  updateUser(input: UpdateUserInput!): User!
+  sendSms(input: SendSmsInput!): SendSmsResult!
+  register(input: RegisterInput!): AuthTokens!
+  login(input: LoginInput!): AuthTokens!
+  refreshTokens(input: RefreshTokensInput!): AuthTokens!
+  fakeLogin(input: FakeLoginInput!): AuthTokens!
+  createDonationPost(input: CreateDonationPostInput!): DonationPost!
+  updateDonationPost(input: UpdateDonationPostInput!): DonationPost!
+  deleteDonationPost(input: DeleteDonationPostInput!): DonationPost!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input UpdateUserInput {
+  accessToken: String!
+  name: String!
+}
+
+input SendSmsInput {
+  phoneNumber: String!
+}
+
+input RegisterInput {
+  name: String!
+  phoneNumber: String!
+  confirmationCode: String!
+}
+
+input LoginInput {
+  phoneNumber: String!
+  confirmationCode: String!
+}
+
+input RefreshTokensInput {
+  refreshToken: String!
+}
+
+input FakeLoginInput {
+  id: String!
+  phoneNumber: String!
+}
+
+input CreateDonationPostInput {
+  accessToken: String!
+  content: String!
+  address: String!
+  bloodType: String!
+  type: String!
+  showPhoneNumber: Boolean!
+}
+
+input UpdateDonationPostInput {
+  accessToken: String!
+  id: String!
+  content: String
+  address: String
+  showPhoneNumber: Boolean
+  bloodType: String
+  type: String
+}
+
+input DeleteDonationPostInput {
+  accessToken: String!
+  id: String!
+}
+
+type Subscription {
+  donationPostAdded(input: DonationPostAddedInput!): DonationPost!
+}
+
+input DonationPostAddedInput {
+  accessToken: String!
+  type: String
+  bloodType: String
+}

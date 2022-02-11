@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String
+  phoneNumber   String         @unique
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @default(now()) @updatedAt
+  donationPosts DonationPost[]
+  medicinePosts MedicinePost[]
+  helpPosts     HelpPost[]
+}
+
+model DonationPost {
+  id              String   @id @default(uuid())
+  content         String
+  address         String
+  type            String
+  bloodType       String
+  showPhoneNumber Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now()) @updatedAt
+  userId          String
+  User            User     @relation(fields: [userId], references: [id])
+}
+
+model MedicinePost {
+  id              String   @id @default(uuid())
+  content         String
+  address         String
+  type            String
+  showPhoneNumber Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now()) @updatedAt
+  userId          String
+  User            User     @relation(fields: [userId], references: [id])
+}
+
+model HelpPost {
+  id              String   @id @default(uuid())
+  content         String
+  address         String
+  location        String?
+  showPhoneNumber Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now()) @updatedAt
+  userId          String
+  User            User     @relation(fields: [userId], references: [id])
+}
