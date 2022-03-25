@@ -11,7 +11,7 @@ export class DonationPostService {
 
     async fetchDonationPosts(input: FetchDonationPostsInput): Promise<DonationPost[]> {
         const { skip, take, cursor, bloodType, type } = input;
-        const posts: DonationPost[] = await this.prismaService.donationPost.findMany({ skip: skip, take, cursor: cursor ? { id: cursor } : undefined, where: { bloodType, type } });
+        const posts: DonationPost[] = await this.prismaService.donationPost.findMany({ skip, take, cursor: cursor ? { id: cursor } : undefined, where: { bloodType, type } });
         return posts;
     }
 

@@ -1,13 +1,13 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { IsBoolean, IsEnum, IsJWT, IsNotEmpty, IsOptional, IsUUID } from "class-validator";
+import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsUUID } from "class-validator";
 import { BloodType, DonationPostType } from "../donation_post.entity";
 
 @InputType()
 export class UpdateDonationPostInput {
-    @IsNotEmpty()
-    @IsJWT()
-    @Field()
-    accessToken: string;
+    // @IsNotEmpty()
+    // @IsJWT()
+    // @Field()
+    // accessToken: string;
 
     @IsNotEmpty()
     @IsUUID()

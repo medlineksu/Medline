@@ -1,12 +1,12 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { IsJWT, IsNotEmpty, IsUUID } from "class-validator";
+import { IsNotEmpty, IsUUID } from "class-validator";
 
 @InputType()
 export class FetchDonationPostInput {
-    @IsNotEmpty()
-    @IsJWT()
-    @Field()
-    accessToken: string;
+    // @IsNotEmpty()
+    // @IsJWT()
+    // @Field()
+    // accessToken: string;
 
     @IsNotEmpty()
     @IsUUID()

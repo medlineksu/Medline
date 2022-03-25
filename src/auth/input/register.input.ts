@@ -5,6 +5,7 @@ import { IsNotEmpty, IsNumberString, IsPhoneNumber, IsString, Length } from "cla
 export class RegisterInput {
     @IsNotEmpty()
     @IsString()
+    @Length(3, 30)
     @Field()
     name: string;
 

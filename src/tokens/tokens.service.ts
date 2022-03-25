@@ -92,7 +92,12 @@ export class TokensService {
                 throw new BadRequestException('Invalid token!');
             }
         } catch (error) {
-            this.handleJwtErrors(error);
+            if (error.status === 400 || error.status === 404) {
+                throw error
+            }
+            else {
+                this.handleJwtErrors(error);
+            }
         }
     }
 
