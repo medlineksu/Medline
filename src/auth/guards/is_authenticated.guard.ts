@@ -15,21 +15,29 @@ export class IsAuthenticated implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const ctx = GqlExecutionContext.create(context);
-    const rawHeaders = ctx.getContext().req.rawHeaders;
+    const args = ctx.getArgs();
+    const input = args.input;
     let accessToken: string;
-    for (let value of rawHeaders) {
-      if (value === 'Authorization') {
-        const index = rawHeaders.indexOf(value);
-        const authHeader = rawHeaders[index + 1];
-        if (authHeader.startsWith('Bearer')) {
-          accessToken = authHeader.split(' ')[1];
-          break;
+    if (input) {
+      if (input.accessToken) {
+        accessToken = input.accessToken;
+      } else {
+        const req = ctx.getContext().req;
+        const rawHeaders = req.rawHeaders as Array<string>;
+        if (rawHeaders.includes('Authorization')) {
+          const index = rawHeaders.indexOf('Authorization');
+          const authHeader = rawHeaders[index + 1];
+          if (authHeader.startsWith('Bearer')) {
+            accessToken = authHeader.split(' ')[1];
+          }
         }
       }
     }
     if (accessToken) {
       const input = ctx.getArgs().input;
-      const user: User = await this.tokensService.getUserFromAccessToken(accessToken);
+      const user: User = await this.tokensService.getUserFromAccessToken(
+        accessToken,
+      );
       input.user = user;
       return true;
     }

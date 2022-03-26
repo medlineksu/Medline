@@ -43,10 +43,25 @@ type User {
   donationPosts: [DonationPost!]!
 }
 
+type MedicinePost {
+  id: String!
+  content: String!
+  address: String!
+  showPhoneNumber: Boolean!
+  type: String!
+  photo: String!
+  userId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User!
+}
+
 type Query {
   user(input: FetchUserInput!): User!
   donationPosts(input: FetchDonationPostsInput!): [DonationPost!]!
   donationPost(input: FetchDonationPostInput!): DonationPost!
+  medicinePosts(input: FetchMedicinePostsInput!): [MedicinePost!]!
+  medicinePost(input: FetchMedicinePostInput!): MedicinePost!
 }
 
 input FetchUserInput {
@@ -67,6 +82,17 @@ input FetchDonationPostInput {
   id: String!
 }
 
+input FetchMedicinePostsInput {
+  skip: Int = 0
+  take: Int = 10
+  cursor: String
+  type: String
+}
+
+input FetchMedicinePostInput {
+  id: String!
+}
+
 type Mutation {
   uploadFile(file: Upload!): Boolean!
   updateUser(input: UpdateUserInput!): User!
@@ -79,6 +105,9 @@ type Mutation {
   createDonationPost(input: CreateDonationPostInput!): DonationPost!
   updateDonationPost(input: UpdateDonationPostInput!): DonationPost!
   deleteDonationPost(input: DeleteDonationPostInput!): DonationPost!
+  createMedicinePost(input: CreateMedicinePostInput!): MedicinePost!
+  updateMedicinePost(input: UpdateMedicinePostInput!): MedicinePost!
+  deleteMedicinePost(input: DeleteMedicinePostInput!): MedicinePost!
 }
 
 """The `Upload` scalar type represents a file upload."""
@@ -138,11 +167,38 @@ input DeleteDonationPostInput {
   id: String!
 }
 
+input CreateMedicinePostInput {
+  content: String!
+  address: String!
+  photo: String!
+  type: String!
+  showPhoneNumber: Boolean!
+}
+
+input UpdateMedicinePostInput {
+  id: String!
+  content: String
+  address: String
+  showPhoneNumber: Boolean
+  photo: String
+  type: String
+}
+
+input DeleteMedicinePostInput {
+  id: String!
+}
+
 type Subscription {
   donationPostAdded(input: DonationPostAddedInput!): DonationPost!
+  medicinePostAdded(input: MedicinePostAddedInput!): MedicinePost!
 }
 
 input DonationPostAddedInput {
   type: String
   bloodType: String
+}
+
+input MedicinePostAddedInput {
+  accessToken: String!
+  type: String
 }

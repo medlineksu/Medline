@@ -19,6 +19,8 @@ model User {
   donationPosts DonationPost[]
   medicinePosts MedicinePost[]
   helpPosts     HelpPost[]
+
+  @@map("users")
 }
 
 model DonationPost {
@@ -32,6 +34,8 @@ model DonationPost {
   updatedAt       DateTime @default(now()) @updatedAt
   userId          String
   User            User     @relation(fields: [userId], references: [id])
+
+  @@map("donationPosts")
 }
 
 model MedicinePost {
@@ -40,10 +44,13 @@ model MedicinePost {
   address         String
   type            String
   showPhoneNumber Boolean  @default(false)
+  photo           String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @default(now()) @updatedAt
   userId          String
   User            User     @relation(fields: [userId], references: [id])
+
+  @@map("medicinePosts")
 }
 
 model HelpPost {
@@ -56,4 +63,6 @@ model HelpPost {
   updatedAt       DateTime @default(now()) @updatedAt
   userId          String
   User            User     @relation(fields: [userId], references: [id])
+
+  @@map("helpPosts")
 }
