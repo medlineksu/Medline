@@ -47,6 +47,8 @@ export class DonationPostService {
             if (input.user.id === post.userId) {
                 const deletedPost = await this.prismaService.donationPost.delete({ where: { id: input.id } });
                 return deletedPost;
+            } else {
+                throw new UnauthorizedException();
             }
         } else {
             throw new NotFoundException();

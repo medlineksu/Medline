@@ -67,6 +67,8 @@ export class MedicinePostService {
           where: { id: input.id },
         });
         return deletedPost;
+      } else {
+        throw new UnauthorizedException();
       }
     } else {
       throw new NotFoundException();
