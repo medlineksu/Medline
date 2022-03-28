@@ -117,7 +117,7 @@ input FetchHelpPostInput {
 }
 
 type Mutation {
-  uploadFile(file: Upload!): Boolean!
+  uploadFile(file: Upload!): String!
   updateUser(input: UpdateUserInput!): User!
   sendSms(input: SendSmsInput!): SendSmsResult!
   register(input: RegisterInput!): AuthTokens!
