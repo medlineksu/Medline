@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { DonationPostModule } from './donation_posts/donation_post.module';
+import { HelpPostModule } from './help_post/help_post.module';
 import { MedicinePostModule } from './medicine_posts/medicine_post.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { TokensModule } from './tokens/tokens.module';
@@ -22,6 +23,7 @@ import { UsersModule } from './users/users.module';
     AuthModule,
     DonationPostModule,
     MedicinePostModule,
+    HelpPostModule,
   ],
 })
 export class AppModule { }

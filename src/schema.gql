@@ -34,13 +34,16 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type User {
+type HelpPost {
   id: String!
-  name: String!
-  phoneNumber: String!
+  content: String!
+  address: String!
+  showPhoneNumber: Boolean!
+  location: String
+  userId: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  donationPosts: [DonationPost!]!
+  user: User!
 }
 
 type MedicinePost {
@@ -56,12 +59,25 @@ type MedicinePost {
   user: User!
 }
 
+type User {
+  id: String!
+  name: String!
+  phoneNumber: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  donationPosts: [DonationPost!]!
+  medicinePosts: [MedicinePost!]!
+  helpPosts: [HelpPost!]!
+}
+
 type Query {
   user(input: FetchUserInput!): User!
   donationPosts(input: FetchDonationPostsInput!): [DonationPost!]!
   donationPost(input: FetchDonationPostInput!): DonationPost!
   medicinePosts(input: FetchMedicinePostsInput!): [MedicinePost!]!
   medicinePost(input: FetchMedicinePostInput!): MedicinePost!
+  helpPosts(input: FetchHelpPostsInput!): [HelpPost!]!
+  helpPost(input: FetchHelpPostInput!): HelpPost!
 }
 
 input FetchUserInput {
@@ -93,6 +109,16 @@ input FetchMedicinePostInput {
   id: String!
 }
 
+input FetchHelpPostsInput {
+  skip: Int = 0
+  take: Int = 10
+  cursor: String
+}
+
+input FetchHelpPostInput {
+  id: String!
+}
+
 type Mutation {
   uploadFile(file: Upload!): Boolean!
   updateUser(input: UpdateUserInput!): User!
@@ -108,6 +134,9 @@ type Mutation {
   createMedicinePost(input: CreateMedicinePostInput!): MedicinePost!
   updateMedicinePost(input: UpdateMedicinePostInput!): MedicinePost!
   deleteMedicinePost(input: DeleteMedicinePostInput!): MedicinePost!
+  createHelpPost(input: CreateHelpPostInput!): HelpPost!
+  updateHelpPost(input: UpdateHelpPostInput!): HelpPost!
+  deleteHelpPost(input: DeleteHelpPostInput!): HelpPost!
 }
 
 """The `Upload` scalar type represents a file upload."""
@@ -188,12 +217,33 @@ input DeleteMedicinePostInput {
   id: String!
 }
 
+input CreateHelpPostInput {
+  content: String!
+  address: String!
+  location: String
+  showPhoneNumber: Boolean!
+}
+
+input UpdateHelpPostInput {
+  id: String!
+  content: String
+  address: String
+  showPhoneNumber: Boolean
+  location: String
+}
+
+input DeleteHelpPostInput {
+  id: String!
+}
+
 type Subscription {
   donationPostAdded(input: DonationPostAddedInput!): DonationPost!
   medicinePostAdded(input: MedicinePostAddedInput!): MedicinePost!
+  helpPostAdded(input: HelpPostAddedInput!): HelpPost!
 }
 
 input DonationPostAddedInput {
+  accessToken: String!
   type: String
   bloodType: String
 }
@@ -201,4 +251,8 @@ input DonationPostAddedInput {
 input MedicinePostAddedInput {
   accessToken: String!
   type: String
+}
+
+input HelpPostAddedInput {
+  accessToken: String!
 }
