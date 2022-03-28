@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { DonationPost } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
-import { User } from "src/users/user.entity";
+import { User } from "src/users/entities/user.entity";
 import { FetchDonationPostInput } from "./input/fetch_donation_post.input";
 import { FetchDonationPostsInput } from "./input/fetch_donation_posts.input";
 

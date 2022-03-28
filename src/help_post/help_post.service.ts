@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from 'src/users/user.entity';
+import { User } from 'src/users/entities/user.entity';
 import { HelpPost } from './entities/help_post.entity';
 import { FetchHelpPostsInput } from './input';
 import { FetchHelpPostInput } from './input/fetch_help_post.input';

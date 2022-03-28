@@ -5,7 +5,7 @@ import { JwtService } from "@nestjs/jwt";
 import { AuthTokens } from "src/auth/entity/auth_tokens.entity";
 import { RefreshTokensInput } from "src/auth/input/refresh_tokens.input";
 import { PrismaService } from "src/prisma/prisma.service";
-import { User } from "src/users/user.entity";
+import { User } from "src/users/entities/user.entity";
 
 /**
  * This class is a container for functions that handle the app JWT logic

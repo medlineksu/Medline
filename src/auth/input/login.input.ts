@@ -4,7 +4,8 @@ import { IsInt, IsNotEmpty, IsNumberString, IsPhoneNumber, Length } from "class-
 @InputType()
 export class LoginInput {
     @IsNotEmpty()
-    @IsPhoneNumber()
+    @IsPhoneNumber('EG')
+    @Length(13, 13)
     @Field()
     phoneNumber: string;
 

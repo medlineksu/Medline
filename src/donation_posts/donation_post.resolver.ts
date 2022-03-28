@@ -10,7 +10,7 @@ import {
 } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { IsAuthenticated } from 'src/auth/guards/is_authenticated.guard';
-import { User } from 'src/users/user.entity';
+import { User } from 'src/users/entities/user.entity';
 import { DonationPost } from './donation_post.entity';
 import { DonationPostService } from './donation_post.service';
 import { CreateDonationPostInput } from './input/create_donation_post.input';

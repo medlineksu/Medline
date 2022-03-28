@@ -3,7 +3,7 @@ import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
 import { IsAuthenticated } from "src/auth/guards/is_authenticated.guard";
 import { FetchUserInput } from "./input/fetch_user.input";
 import { UpdateUserInput } from "./input/update_user.input";
-import { User } from "./user.entity";
+import { User } from "./entities/user.entity";
 import { UsersService } from "./users.service";
 
 @Resolver(of => User)

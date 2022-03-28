@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from 'src/users/user.entity';
+import { User } from 'src/users/entities/user.entity';
 
 /**
  * This will be displayed as enumeration rather than a list of strings

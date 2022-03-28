@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { TokensService } from 'src/tokens/tokens.service';
-import { User } from 'src/users/user.entity';
+import { User } from 'src/users/entities/user.entity';
 
 /**
  * @guard
