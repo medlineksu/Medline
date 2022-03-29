@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets('uploads', { prefix: '/uploads/' });
   app.use(graphqlUploadExpress());
-  app.useGlobalPipes(new ValidationPipe);
-  await app.listen(80);
+  app.useGlobalPipes(new ValidationPipe());
+  await app.listen(process.env.PORT || 80);
 }
 bootstrap();
