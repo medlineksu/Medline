@@ -12,5 +12,5 @@ export class MedicinePostAddedInput {
     @IsOptional()
     @IsEnum(MedicinePostType)
     @Field({ nullable: true })
-    type: string;
+    type?: string;
 }

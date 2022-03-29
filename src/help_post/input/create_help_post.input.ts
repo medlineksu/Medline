@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 import {
   IsBoolean,
+  IsJWT,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -10,10 +11,10 @@ import {
 
 @InputType()
 export class CreateHelpPostInput {
-  // @IsNotEmpty()
-  // @IsJWT()
-  // @Field()
-  // accessToken: string;
+  @IsOptional()
+  @IsJWT()
+  @Field({ nullable: true })
+  accessToken?: string;
 
   @IsNotEmpty()
   @IsString()

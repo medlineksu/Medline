@@ -1,39 +1,46 @@
-import { Field, InputType } from "@nestjs/graphql";
-import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsUUID } from "class-validator";
-import { BloodType, DonationPostType } from "../donation_post.entity";
+import { Field, InputType } from '@nestjs/graphql';
+import {
+  IsBoolean,
+  IsEnum,
+  IsJWT,
+  IsNotEmpty,
+  IsOptional,
+  IsUUID,
+} from 'class-validator';
+import { BloodType, DonationPostType } from '../donation_post.entity';
 
 @InputType()
 export class UpdateDonationPostInput {
-    // @IsNotEmpty()
-    // @IsJWT()
-    // @Field()
-    // accessToken: string;
+  @IsOptional()
+  @IsJWT()
+  @Field({ nullable: true })
+  accessToken?: string;
 
-    @IsNotEmpty()
-    @IsUUID()
-    @Field()
-    id: string;
+  @IsNotEmpty()
+  @IsUUID()
+  @Field()
+  id: string;
 
-    @IsOptional()
-    @Field({ nullable: true })
-    content?: string;
+  @IsOptional()
+  @Field({ nullable: true })
+  content?: string;
 
-    @IsOptional()
-    @Field({ nullable: true })
-    address?: string;
+  @IsOptional()
+  @Field({ nullable: true })
+  address?: string;
 
-    @IsOptional()
-    @IsBoolean()
-    @Field({ nullable: true })
-    showPhoneNumber?: boolean;
+  @IsOptional()
+  @IsBoolean()
+  @Field({ nullable: true })
+  showPhoneNumber?: boolean;
 
-    @IsOptional()
-    @IsEnum(BloodType)
-    @Field({ nullable: true })
-    bloodType?: string;
+  @IsOptional()
+  @IsEnum(BloodType)
+  @Field({ nullable: true })
+  bloodType?: string;
 
-    @IsOptional()
-    @IsEnum(DonationPostType)
-    @Field({ nullable: true })
-    type?: string;
+  @IsOptional()
+  @IsEnum(DonationPostType)
+  @Field({ nullable: true })
+  type?: string;
 }
