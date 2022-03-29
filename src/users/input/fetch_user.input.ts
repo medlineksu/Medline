@@ -3,10 +3,10 @@ import { IsJWT, IsNotEmpty, IsOptional, IsPhoneNumber, IsUUID } from "class-vali
 
 @InputType()
 export class FetchUserInput {
-    @IsNotEmpty()
-    @IsJWT()
-    @Field()
-    accessToken: string;
+    // @IsNotEmpty()
+    // @IsJWT()
+    // @Field()
+    // accessToken: string;
 
     @IsOptional()
     @IsUUID()

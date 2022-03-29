@@ -3,10 +3,10 @@ import { IsJWT, IsNotEmpty, IsString } from "class-validator";
 
 @InputType()
 export class UpdateUserInput {
-    @IsNotEmpty()
-    @IsJWT()
-    @Field()
-    accessToken: string;
+    // @IsNotEmpty()
+    // @IsJWT()
+    // @Field()
+    // accessToken: string;
 
     // @IsNotEmpty()
     // @IsUUID()

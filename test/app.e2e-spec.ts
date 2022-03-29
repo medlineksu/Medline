@@ -18,7 +18,7 @@ describe('E2E', () => {
   });
 
   describe('Authentication', () => {
-    describe('Fake Login', async () => {
+    it('DoesFakeLoginRight', async () => {
       const { body } = await request(app.getHttpServer())
         .post('/graphql')
         .send({

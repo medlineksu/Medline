@@ -68,7 +68,7 @@ type MedicinePost {
 }
 
 type Query {
-  user(input: FetchUserInput!): User!
+  me(input: MeInput!): User!
   donationPosts(input: FetchDonationPostsInput!): [DonationPost!]!
   donationPost(input: FetchDonationPostInput!): DonationPost!
   medicinePosts(input: FetchMedicinePostsInput!): [MedicinePost!]!
@@ -77,10 +77,8 @@ type Query {
   helpPost(input: FetchHelpPostInput!): HelpPost!
 }
 
-input FetchUserInput {
-  accessToken: String!
-  id: String
-  phoneNumber: String
+input MeInput {
+  accessToken: String
 }
 
 input FetchDonationPostsInput {
@@ -118,7 +116,6 @@ input FetchHelpPostInput {
 
 type Mutation {
   uploadFile(file: Upload!): String!
-  updateUser(input: UpdateUserInput!): User!
   sendSms(input: SendSmsInput!): SendSmsResult!
   register(input: RegisterInput!): AuthTokens!
   login(input: LoginInput!): AuthTokens!
@@ -138,11 +135,6 @@ type Mutation {
 
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
-
-input UpdateUserInput {
-  accessToken: String!
-  name: String!
-}
 
 input SendSmsInput {
   phoneNumber: String!

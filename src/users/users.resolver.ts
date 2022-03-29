@@ -1,13 +1,12 @@
 import { UseGuards } from "@nestjs/common";
-import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
+import { Resolver, Query, Args } from "@nestjs/graphql";
 import { IsAuthenticated } from "src/auth/guards/is_authenticated.guard";
-import { FetchUserInput } from "./input/fetch_user.input";
-import { UpdateUserInput } from "./input/update_user.input";
 import { User } from "./entities/user.entity";
 import { UsersService } from "./users.service";
+import { MeInput } from "./input/me.input";
 
-@Resolver(of => User)
 @UseGuards(IsAuthenticated)
+@Resolver(of => User)
 export class UsersResolver {
     constructor(private readonly usersService: UsersService) {}
 
@@ -16,9 +15,14 @@ export class UsersResolver {
     //     return await this.usersService.fetchUsers(input);
     // }
 
+    // @Query(returns => User)
+    // async user(@Args('input') input: FetchUserInput): Promise<User> {
+    //     return await this.usersService.fetchUser(input);
+    // }
+
     @Query(returns => User)
-    async user(@Args('input') input: FetchUserInput): Promise<User> {
-        return await this.usersService.fetchUser(input);
+    async me(@Args('input') input: MeInput): Promise<User> {
+        return await this.usersService.me(input);
     }
 
     // @Mutation(returns => User)
@@ -26,10 +30,10 @@ export class UsersResolver {
     //     return await this.usersService.createUser(input);
     // }
 
-    @Mutation(returns => User)
-    async updateUser(@Args('input') input: UpdateUserInput): Promise<User> {
-        return await this.usersService.updateUser(input);
-    }
+    // @Mutation(returns => User)
+    // async updateUser(@Args('input') input: UpdateUserInput): Promise<User> {
+    //     return await this.usersService.updateUser(input);
+    // }
 
     // @Mutation(returns => User)
     // async deleteUser(@Args('input') input: UpdateUserInput): Promise<User> {

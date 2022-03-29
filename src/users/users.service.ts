@@ -1,40 +1,58 @@
-import { Injectable } from "@nestjs/common";
-import { User } from "@prisma/client";
-import { PrismaService } from "src/prisma/prisma.service";
-import { CreateUserInput } from "./input/create_user.input";
-import { FetchUserInput } from "./input/fetch_user.input";
-import { FetchUsersInput } from "./input/fetch_users.input";
-
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { User } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateUserInput } from './input/create_user.input';
+import { FetchUserInput } from './input/fetch_user.input';
+import { FetchUsersInput } from './input/fetch_users.input';
 
 @Injectable()
 export class UsersService {
-    constructor(private readonly prismaService: PrismaService) { }
+  constructor(private readonly prismaService: PrismaService) {}
 
-    async fetchUsers(input: FetchUsersInput): Promise<User[]> {
-        const { cursor, take, skip } = input;
-        const users: User[] = await this.prismaService.user.findMany({ skip, take, cursor: cursor ? { id: cursor } : undefined });
-        return users;
-    }
+  async fetchUsers(input: FetchUsersInput): Promise<User[]> {
+    const { cursor, take, skip } = input;
+    const users: User[] = await this.prismaService.user.findMany({
+      skip,
+      take,
+      cursor: cursor ? { id: cursor } : undefined,
+    });
+    return users;
+  }
 
-    async fetchUser(input: FetchUserInput): Promise<User> {
-        const user: User = await this.prismaService.user.findUnique({ where: input });
-        return user;
-    }
+  async fetchUser(input: FetchUserInput): Promise<User> {
+    const user: User = await this.prismaService.user.findUnique({
+      where: input,
+    });
+    return user;
+  }
 
-    async createUser(input: CreateUserInput): Promise<User> {
-        const user: User = await this.prismaService.user.create({ data: input });
-        return user;
-    }
+  async me(input): Promise<User> {
+    return input.user;
+  }
 
-    async updateUser(input): Promise<User> {
-        const { user, accessToken, ...data } = input;
-        const updatedUser: User = await this.prismaService.user.update({ where: { id: user.id }, data });
-        return updatedUser;
-    }
+  async createUser(input: CreateUserInput): Promise<User> {
+    const user: User = await this.prismaService.user.create({ data: input });
+    return user;
+  }
 
-    async deleteUser(input): Promise<User> {
-        const { user } = input
-        const deletedUser: User = await this.prismaService.user.delete({ where: { id: user.id } });
-        return deletedUser;
+  async updateUser(input): Promise<User> {
+    const { user, accessToken, ...data } = input;
+    if (user.id !== data.id) {
+      const updatedUser: User = await this.prismaService.user.update({
+        where: { id: user.id },
+        data,
+      });
+      return updatedUser;
+    } else {
+      throw new UnauthorizedException();
     }
+  }
+
+  async deleteUser(input): Promise<User> {
+    const { user } = input;
+    const deletedUser: User = await this.prismaService.user.delete({
+      where: { id: user.id },
+    });
+    return deletedUser;
+  }
 }
